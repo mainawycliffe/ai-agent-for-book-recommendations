@@ -1,4 +1,4 @@
-import { ConnectorConfig } from 'firebase/data-connect';
+import { ConnectorConfig, DataConnect, QueryRef, QueryPromise, MutationRef, MutationPromise } from 'firebase/data-connect';
 
 export const connectorConfig: ConnectorConfig;
 
@@ -7,4 +7,133 @@ export type UUIDString = string;
 export type Int64String = string;
 export type DateString = string;
 
+
+export interface Book_Key {
+  id: UUIDString;
+  __typename?: 'Book_Key';
+}
+
+export interface BooksData {
+  books: ({
+    id: UUIDString;
+    title: string;
+    authors: string[];
+    genre: string[];
+    summary: string;
+    imageUrl: string;
+    publishedDate: TimestampString;
+    content: string;
+  } & Book_Key)[];
+}
+
+export interface ReadHistoryData {
+  readHistories: ({
+    id: UUIDString;
+    book: {
+      id: UUIDString;
+      title: string;
+      authors: string[];
+      genre: string[];
+      summary: string;
+      imageUrl: string;
+      publishedDate: TimestampString;
+      content: string;
+    } & Book_Key;
+      readDate: TimestampString;
+      rating?: number | null;
+      review?: string | null;
+      user: {
+        uid: string;
+        name?: string | null;
+        email: string;
+      } & User_Key;
+  } & ReadHistory_Key)[];
+}
+
+export interface ReadHistoryVariables {
+  uid: string;
+}
+
+export interface ReadHistory_Key {
+  id: UUIDString;
+  __typename?: 'ReadHistory_Key';
+}
+
+export interface UpsertBookData {
+  book_upsert: Book_Key;
+}
+
+export interface UpsertBookVariables {
+  id: UUIDString;
+  title: string;
+  summary: string;
+  genre: string[];
+  authors: string[];
+  publishedDate: TimestampString;
+  content: string;
+  imageUrl: string;
+}
+
+export interface UpsertUserData {
+  user_upsert: User_Key;
+}
+
+export interface UpsertUserVariables {
+  uid: string;
+  name?: string | null;
+  email?: string | null;
+}
+
+export interface User_Key {
+  uid: string;
+  __typename?: 'User_Key';
+}
+
+interface UpsertUserRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: UpsertUserVariables): MutationRef<UpsertUserData, UpsertUserVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: UpsertUserVariables): MutationRef<UpsertUserData, UpsertUserVariables>;
+  operationName: string;
+}
+export const upsertUserRef: UpsertUserRef;
+
+export function upsertUser(vars: UpsertUserVariables): MutationPromise<UpsertUserData, UpsertUserVariables>;
+export function upsertUser(dc: DataConnect, vars: UpsertUserVariables): MutationPromise<UpsertUserData, UpsertUserVariables>;
+
+interface UpsertBookRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: UpsertBookVariables): MutationRef<UpsertBookData, UpsertBookVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: UpsertBookVariables): MutationRef<UpsertBookData, UpsertBookVariables>;
+  operationName: string;
+}
+export const upsertBookRef: UpsertBookRef;
+
+export function upsertBook(vars: UpsertBookVariables): MutationPromise<UpsertBookData, UpsertBookVariables>;
+export function upsertBook(dc: DataConnect, vars: UpsertBookVariables): MutationPromise<UpsertBookData, UpsertBookVariables>;
+
+interface BooksRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (): QueryRef<BooksData, undefined>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect): QueryRef<BooksData, undefined>;
+  operationName: string;
+}
+export const booksRef: BooksRef;
+
+export function books(): QueryPromise<BooksData, undefined>;
+export function books(dc: DataConnect): QueryPromise<BooksData, undefined>;
+
+interface ReadHistoryRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: ReadHistoryVariables): QueryRef<ReadHistoryData, ReadHistoryVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: ReadHistoryVariables): QueryRef<ReadHistoryData, ReadHistoryVariables>;
+  operationName: string;
+}
+export const readHistoryRef: ReadHistoryRef;
+
+export function readHistory(vars: ReadHistoryVariables): QueryPromise<ReadHistoryData, ReadHistoryVariables>;
+export function readHistory(dc: DataConnect, vars: ReadHistoryVariables): QueryPromise<ReadHistoryData, ReadHistoryVariables>;
 

@@ -1,0 +1,39 @@
+{
+  "connector": "llm",
+  "location": "us-central1",
+  "service": "ai-agent-for-book-recommendations",
+  "tools": [
+    {
+      "name": "searchForBooksWithQuery",
+      "type": "query",
+      "description": "A query to search for books using a vector search.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "userReadHistory",
+      "type": "query",
+      "description": "A query to get a list of books that a user has read, along with their reading\nhistory.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "uid"
+        ]
+      }
+    }
+  ]
+}

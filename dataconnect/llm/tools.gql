@@ -1,0 +1,38 @@
+fragment BookDetails on Book {
+  id
+  title
+  authors
+  genre
+  summary
+  imageUrl
+  publishedDate
+  content
+}
+
+# A query to search for books using a vector search.
+query searchForBooksWithQuery($query: String!) @auth(level: PUBLIC) {
+  books_contentEmbed_similarity(
+    compare_embed: { model: "text-embedding-005", text: $query }
+  ) {
+    ...BookDetails
+  }
+}
+
+# A query to get a list of books that a user has read, along with their reading
+# history.
+query userReadHistory($uid: String!) @auth(level: PUBLIC) {
+  readHistories(where: { userUid: { eq: $uid } }) {
+    id
+    book {
+      ...BookDetails
+    }
+    readDate
+    rating
+    review
+    user {
+      uid
+      name
+      email
+    }
+  }
+}

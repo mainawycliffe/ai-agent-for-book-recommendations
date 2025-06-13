@@ -1,0 +1,191 @@
+extend type Query {
+  """
+  ✨ Look up a single `Book` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  book(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Book_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Book_FirstRow
+  ): Book @fdc_generated(from: "Book", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `ReadHistory` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  readHistory(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ReadHistory_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ReadHistory_FirstRow
+  ): ReadHistory @fdc_generated(from: "ReadHistory", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `User` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  user(
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+  ): User @fdc_generated(from: "User", purpose: QUERY_SINGLE)
+  """
+  ✨ List `Book` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  books(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Book_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Book_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Book_Having
+  ): [Book!]! @fdc_generated(from: "Book", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `ReadHistory` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  readHistories(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: ReadHistory_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [ReadHistory_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: ReadHistory_Having
+  ): [ReadHistory!]! @fdc_generated(from: "ReadHistory", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `User` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  users(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: User_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [User_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: User_Having
+  ): [User!]! @fdc_generated(from: "User", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Book` objects and return selected fields, ordered by vector similarity between the `contentEmbed` field and `compare_embed`.
+  (Alternatively, `compare` can be used if the input is a raw Vector.)
+  """
+  books_contentEmbed_similarity(
+    """
+    Vector to compare with the stored vectors.
+    """
+    compare: Vector
+
+    """
+    ✨ `_embed` server value variant of `compare` (Vector to compare with the stored vectors.)
+    """
+    compare_embed: Vector_Embed
+
+    """
+    Similarity method to use for vector comparison (defaults to `INNER_PRODUCT`).
+    """
+    method: VectorSimilarityMethod = INNER_PRODUCT
+
+    """
+    Threshold for distance comparison.
+    """
+    within: Float
+
+    """
+    Filter condition to apply when searching for similar vectors.
+    """
+    where: Book_Filter
+
+    """
+    Limit the number of similar vectors returned (defaults to 100 rows).
+    """
+    limit: Int = 100
+  ): [Book!]! @fdc_generated(from: "Book.contentEmbed", purpose: QUERY_MULTIPLE_BY_SIMILARITY)
+}

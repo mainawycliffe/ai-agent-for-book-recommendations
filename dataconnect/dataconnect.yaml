@@ -9,4 +9,4 @@ schema:
       cloudSql:
         instanceId: "ai-agent-for-book-recommendations-fdc"
       # schemaValidation: "COMPATIBLE"
-connectorDirs: ["./connector"]
+connectorDirs: ["./connector", "./llm"]

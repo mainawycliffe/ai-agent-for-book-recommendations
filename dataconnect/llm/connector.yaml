@@ -1,0 +1,4 @@
+connectorId: llm
+generate:
+  llmTools:
+    outputFile: ../../tools.json
