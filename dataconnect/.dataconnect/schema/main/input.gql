@@ -296,6 +296,14 @@ input Book_Order {
 """
 input ReadHistory_Data {
   """
+  ✨ Generated from Field `ReadHistory`.`userUid` of type `String!`
+  """
+  userUid: String
+  """
+  ✨ `_expr` server value variant of `userUid` (✨ Generated from Field `ReadHistory`.`userUid` of type `String!`)
+  """
+  userUid_expr: String_Expr
+  """
   ✨ Generated from Field `ReadHistory`.`id` of type `UUID!`
   """
   id: UUID
@@ -303,6 +311,10 @@ input ReadHistory_Data {
   ✨ `_expr` server value variant of `id` (✨ Generated from Field `ReadHistory`.`id` of type `UUID!`)
   """
   id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `ReadHistory`.`user` of type `User!`
+  """
+  user: User_Key
   """
   ✨ Generated from Field `ReadHistory`.`bookId` of type `UUID!`
   """
@@ -312,21 +324,9 @@ input ReadHistory_Data {
   """
   bookId_expr: UUID_Expr
   """
-  ✨ Generated from Field `ReadHistory`.`userUid` of type `String!`
-  """
-  userUid: String
-  """
-  ✨ `_expr` server value variant of `userUid` (✨ Generated from Field `ReadHistory`.`userUid` of type `String!`)
-  """
-  userUid_expr: String_Expr
-  """
   ✨ Generated from Field `ReadHistory`.`book` of type `Book!`
   """
   book: Book_Key
-  """
-  ✨ Generated from Field `ReadHistory`.`user` of type `User!`
-  """
-  user: User_Key
   """
   ✨ Generated from Field `ReadHistory`.`createdAt` of type `Timestamp!`
   """
@@ -397,25 +397,25 @@ input ReadHistory_Filter {
   """
   _or: [ReadHistory_Filter!]
   """
+  ✨ Generated from Field `ReadHistory`.`userUid` of type `String!`
+  """
+  userUid: String_Filter
+  """
   ✨ Generated from Field `ReadHistory`.`id` of type `UUID!`
   """
   id: UUID_Filter
+  """
+  ✨ Generated from Field `ReadHistory`.`user` of type `User!`
+  """
+  user: User_Filter
   """
   ✨ Generated from Field `ReadHistory`.`bookId` of type `UUID!`
   """
   bookId: UUID_Filter
   """
-  ✨ Generated from Field `ReadHistory`.`userUid` of type `String!`
-  """
-  userUid: String_Filter
-  """
   ✨ Generated from Field `ReadHistory`.`book` of type `Book!`
   """
   book: Book_Filter
-  """
-  ✨ Generated from Field `ReadHistory`.`user` of type `User!`
-  """
-  user: User_Filter
   """
   ✨ Generated from Field `ReadHistory`.`createdAt` of type `Timestamp!`
   """
@@ -536,6 +536,14 @@ input ReadHistory_Having {
 """
 input ReadHistory_Key {
   """
+  ✨ Generated from Field `ReadHistory`.`userUid` of type `String!`
+  """
+  userUid: String
+  """
+  ✨ `_expr` server value variant of `userUid` (✨ Generated from Field `ReadHistory`.`userUid` of type `String!`)
+  """
+  userUid_expr: String_Expr
+  """
   ✨ Generated from Field `ReadHistory`.`id` of type `UUID!`
   """
   id: UUID
@@ -562,25 +570,25 @@ input ReadHistory_ListFilter {
 """
 input ReadHistory_Order {
   """
+  ✨ Generated from Field `ReadHistory`.`userUid` of type `String!`
+  """
+  userUid: OrderDirection
+  """
   ✨ Generated from Field `ReadHistory`.`id` of type `UUID!`
   """
   id: OrderDirection
+  """
+  ✨ Generated from Field `ReadHistory`.`user` of type `User!`
+  """
+  user: User_Order
   """
   ✨ Generated from Field `ReadHistory`.`bookId` of type `UUID!`
   """
   bookId: OrderDirection
   """
-  ✨ Generated from Field `ReadHistory`.`userUid` of type `String!`
-  """
-  userUid: OrderDirection
-  """
   ✨ Generated from Field `ReadHistory`.`book` of type `Book!`
   """
   book: Book_Order
-  """
-  ✨ Generated from Field `ReadHistory`.`user` of type `User!`
-  """
-  user: User_Order
   """
   ✨ Generated from Field `ReadHistory`.`createdAt` of type `Timestamp!`
   """

@@ -34,3 +34,28 @@ mutation upsertBook(
     }
   )
 }
+
+mutation upsertReadHistory(
+  $id: UUID
+  $userUid: String!
+  $bookId: UUID!
+  $readDate: Timestamp!
+  $rating: Int
+  $review: String
+) @auth(expr: "auth.uid == userUid") {
+  readHistory_upsert(
+    data: {
+      id: $id
+      userUid: $userUid
+      bookId: $bookId
+      readDate: $readDate
+      rating: $rating
+      review: $review
+    }
+  )
+}
+
+mutation deleteReadHistory($id: UUID!, $userUid: String!)
+@auth(expr: "auth.uid == readHistory.userUid") {
+  readHistory_delete(key: { id: $id, userUid: $userUid })
+}

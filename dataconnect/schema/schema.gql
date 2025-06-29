@@ -18,7 +18,7 @@ type Book @table(key: "id") {
   contentEmbed: Vector! @col(size: 768)
 }
 
-type ReadHistory @table(key: "id") {
+type ReadHistory @table(key: ["user", "id"]) {
   id: UUID! @default(expr: "uuidV4()")
   book: Book!
   user: User!
