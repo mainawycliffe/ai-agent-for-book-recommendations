@@ -2,11 +2,9 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  imports: [ RouterModule],
   selector: 'app-root',
-  templateUrl: './app.html',
-  styleUrl: './app.scss',
+  template: `<router-outlet></router-outlet>`,
+  standalone: true,
+  imports: [RouterModule],
 })
-export class App {
-  protected title = 'webapp';
-}
+export class AppComponent {}
