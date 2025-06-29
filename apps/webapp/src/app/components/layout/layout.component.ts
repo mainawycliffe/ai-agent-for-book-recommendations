@@ -12,7 +12,7 @@ import { AuthService } from '../../services/auth.service';
       <nav
         class="container mx-auto px-6 py-4 flex justify-between items-center"
       >
-        <a href="/" class="text-2xl font-bold">BookRec</a>
+        <a href="/" class="text-2xl font-bold">Project Scio</a>
         <ul class="flex space-x-4">
           @if (isLoggedIn()) {
           <li><a routerLink="/" class="hover:text-gray-300">Home</a></li>
