@@ -26,6 +26,15 @@ export interface BooksData {
   } & Book_Key)[];
 }
 
+export interface DeleteReadHistoryData {
+  readHistory_delete?: ReadHistory_Key | null;
+}
+
+export interface DeleteReadHistoryVariables {
+  id: UUIDString;
+  userUid: string;
+}
+
 export interface ReadHistoryData {
   readHistories: ({
     id: UUIDString;
@@ -47,7 +56,7 @@ export interface ReadHistoryData {
         name?: string | null;
         email: string;
       } & User_Key;
-  } & ReadHistory_Key)[];
+  })[];
 }
 
 export interface ReadHistoryVariables {
@@ -56,6 +65,7 @@ export interface ReadHistoryVariables {
 
 export interface ReadHistory_Key {
   id: UUIDString;
+  userUid: string;
   __typename?: 'ReadHistory_Key';
 }
 
@@ -64,7 +74,7 @@ export interface UpsertBookData {
 }
 
 export interface UpsertBookVariables {
-  id: UUIDString;
+  id?: UUIDString | null;
   title: string;
   summary: string;
   genre: string[];
@@ -72,6 +82,19 @@ export interface UpsertBookVariables {
   publishedDate: TimestampString;
   content: string;
   imageUrl: string;
+}
+
+export interface UpsertReadHistoryData {
+  readHistory_upsert: ReadHistory_Key;
+}
+
+export interface UpsertReadHistoryVariables {
+  id?: UUIDString | null;
+  userUid: string;
+  bookId: UUIDString;
+  readDate: TimestampString;
+  rating?: number | null;
+  review?: string | null;
 }
 
 export interface UpsertUserData {
@@ -112,6 +135,30 @@ export const upsertBookRef: UpsertBookRef;
 
 export function upsertBook(vars: UpsertBookVariables): MutationPromise<UpsertBookData, UpsertBookVariables>;
 export function upsertBook(dc: DataConnect, vars: UpsertBookVariables): MutationPromise<UpsertBookData, UpsertBookVariables>;
+
+interface UpsertReadHistoryRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: UpsertReadHistoryVariables): MutationRef<UpsertReadHistoryData, UpsertReadHistoryVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: UpsertReadHistoryVariables): MutationRef<UpsertReadHistoryData, UpsertReadHistoryVariables>;
+  operationName: string;
+}
+export const upsertReadHistoryRef: UpsertReadHistoryRef;
+
+export function upsertReadHistory(vars: UpsertReadHistoryVariables): MutationPromise<UpsertReadHistoryData, UpsertReadHistoryVariables>;
+export function upsertReadHistory(dc: DataConnect, vars: UpsertReadHistoryVariables): MutationPromise<UpsertReadHistoryData, UpsertReadHistoryVariables>;
+
+interface DeleteReadHistoryRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: DeleteReadHistoryVariables): MutationRef<DeleteReadHistoryData, DeleteReadHistoryVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: DeleteReadHistoryVariables): MutationRef<DeleteReadHistoryData, DeleteReadHistoryVariables>;
+  operationName: string;
+}
+export const deleteReadHistoryRef: DeleteReadHistoryRef;
+
+export function deleteReadHistory(vars: DeleteReadHistoryVariables): MutationPromise<DeleteReadHistoryData, DeleteReadHistoryVariables>;
+export function deleteReadHistory(dc: DataConnect, vars: DeleteReadHistoryVariables): MutationPromise<DeleteReadHistoryData, DeleteReadHistoryVariables>;
 
 interface BooksRef {
   /* Allow users to create refs without passing in DataConnect */

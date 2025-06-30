@@ -1,3 +1,14 @@
+# Generated Angular README
+This README will guide you through the process of using the generated Angular SDK package for the connector `default`. It will also provide examples on how to use your generated SDK to call your Data Connect queries and mutations.
+
+**If you're looking for the `JavaScript README`, you can find it at [`default-connector/README.md`](../README.md)**
+
+***NOTE:** This README is generated alongside the generated SDK. If you make changes to this file, they will be overwritten when the SDK is regenerated.*
+
+You can use this generated SDK by importing from the package `@firebasegen/default-connector/angular` as shown below. Both CommonJS and ESM imports are supported.
+
+You can also follow the instructions from the [Data Connect documentation](https://firebase.google.com/docs/data-connect/web-sdk#angular).
+
 # Table of Contents
 - [**Overview**](#generated-angular-readme)
 - [**TanStack Query Firebase & TanStack Angular Query**](#tanstack-query-firebase-tanstack-angular-query)
@@ -10,15 +21,8 @@
 - [**Mutations**](#mutations)
   - [*upsertUser*](#upsertuser)
   - [*upsertBook*](#upsertbook)
-
-# Generated Angular README
-This README will guide you through the process of using the generated Angular SDK package for the connector `default`. It will also provide examples on how to use your generated SDK to call your Data Connect queries and mutations.
-
-***NOTE:** This README is generated alongside the generated SDK. If you make changes to this file, they will be overwritten when the SDK is regenerated.*
-
-You can use this generated SDK by importing from the package `@firebasegen/default-connector/angular` as shown below. Both CommonJS and ESM imports are supported.
-
-You can also follow the instructions from the [Data Connect documentation](https://firebase.google.com/docs/data-connect/web-sdk#angular).
+  - [*upsertReadHistory*](#upsertreadhistory)
+  - [*deleteReadHistory*](#deletereadhistory)
 
 # TanStack Query Firebase & TanStack Angular Query
 This SDK provides [Angular](https://angular.dev/) injectors generated specific to your application, for the operations found in the connector `default`. These injectors are generated using [TanStack Query Firebase](https://react-query-firebase.invertase.dev/) by our partners at Invertase, a library built on top of [TanStack Angular Query v5](https://tanstack.com/query/v5/docs/framework/angular/overview) and [AngularFire](https://github.com/angular/angularfire/tree/main).
@@ -222,7 +226,7 @@ export interface ReadHistoryData {
         name?: string | null;
         email: string;
       } & User_Key;
-  } & ReadHistory_Key)[];
+  })[];
 }
 ```
 
@@ -414,7 +418,7 @@ The `upsertBook` Mutation requires an argument of type `UpsertBookVariables`, wh
 
 ```javascript
 export interface UpsertBookVariables {
-  id: UUIDString;
+  id?: UUIDString | null;
   title: string;
   summary: string;
   genre: string[];
@@ -492,7 +496,7 @@ export class MyComponent {
   executeMutation() {
     // The `UpsertBook` Mutation requires an argument of type `UpsertBookVariables`:
     const upsertBookVars: UpsertBookVariables = {
-      id: ..., 
+      id: ..., // optional
       title: ..., 
       summary: ..., 
       genre: ..., 
@@ -510,6 +514,212 @@ export class MyComponent {
 
     // You can also pass in a `UpsertBookOptions` object (not function) to `CreateDataConnectMutationResult.mutate()`.
     this.mutation.mutate(upsertBookVars, this.options());
+  }
+}
+```
+
+## upsertReadHistory
+You can execute the `upsertReadHistory` Mutation using the `CreateDataConnectMutationResult` object returned by the following Mutation injector (which is defined in [default-connector/angular/index.d.ts](./index.d.ts)):
+```javascript
+injectUpsertReadHistory(options?: UpsertReadHistoryOptions, injector?: Injector): CreateDataConnectMutationResult<UpsertReadHistoryData, UpsertReadHistoryVariables, UpsertReadHistoryVariables>;
+```
+
+### Variables
+The `upsertReadHistory` Mutation requires an argument of type `UpsertReadHistoryVariables`, which is defined in [default-connector/index.d.ts](../index.d.ts). It has the following fields:
+
+```javascript
+export interface UpsertReadHistoryVariables {
+  id?: UUIDString | null;
+  userUid: string;
+  bookId: UUIDString;
+  readDate: TimestampString;
+  rating?: number | null;
+  review?: string | null;
+}
+```
+### Return Type
+Recall that calling the `upsertReadHistory` Mutation injector returns a `CreateDataConnectMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
+
+To check the status of a Mutation, use the `CreateDataConnectMutationResult.status()` function. You can also check for pending / success / error status using the `CreateDataConnectMutationResult.isPending()`, `CreateDataConnectMutationResult.isSuccess()`, and `CreateDataConnectMutationResult.isError()` functions.
+
+To execute the Mutation, call `CreateDataConnectMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation. 
+
+To access the data returned by a Mutation, use the `CreateDataConnectMutationResult.data()` function. The data for the `upsertReadHistory` Mutation is of type `UpsertReadHistoryData`, which is defined in [default-connector/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface UpsertReadHistoryData {
+  readHistory_upsert: ReadHistory_Key;
+}
+```
+
+You can also call `CreateDataConnectMutationResult.mutateAsync()`, which executes the Mutation and returns a promise with the data returned from the Mutation. To learn more, see the [TanStack Angular Query documentation](https://tanstack.com/query/latest/docs/framework/angular/guides/mutations#promises).
+
+To learn more about the `CreateDataConnectMutationResult` object, see the [TanStack Query Firebase documentation](https://docs.page/invertase/tanstack-query-firebase/angular/data-connect/functions/injectDataConnectMutation) and the [TanStack Angular Query documentation](https://tanstack.com/query/v5/docs/framework/angular/reference/functions/injectmutation).
+
+### Using `upsertReadHistory`'s Mutation injector
+
+```javascript
+... // other imports
+import { connectorConfig, UpsertReadHistoryVariables } from '@firebasegen/default-connector';
+import { injectUpsertReadHistory, UpsertReadHistoryOptions } from '@firebasegen/default-connector/angular'
+import { DataConnect } from '@angular/fire/data-connect';
+import { initializeApp } from '@angular/fire/app';
+
+@Component({
+  ... // other component fields
+  template: `
+    <!-- You can render your component dynamically based on the status of the Mutation. -->
+    @if (mutation.isPending()) {
+      Loading...
+    }
+    @if (mutation.error()) {
+      An error has occurred: {{ mutation.error() }}
+    }
+    <!-- If the Mutation is successful, you can access the data returned using
+      the CreateDataConnectMutationResult.data() function. -->
+    @if (mutation.data(); as data) {
+      <!-- Use your data to display something -->
+      <div>Mutation successful!</div>
+    }
+    <!-- Let's create a button that executes our mutation when clicked. -->
+    <button
+      (disabled)="mutation.isPending()"
+      (click)="executeMutation()"
+    >
+      {{ mutation.isPending() ? 'Pending...' : 'Mutate!' }}
+    </button>
+  `,
+})
+export class MyComponent {
+  // Call the Mutation injector function to get a `CreateDataConnectMutationResult` object which holds the state of your Mutation.
+  mutation = injectUpsertReadHistory();
+
+  // You can also pass in a `UpsertReadHistoryOptions` function (not object) to the Mutation injector function.
+  options: UpsertReadHistoryOptions = () => {
+    return {
+      onSuccess: () => { console.log('Mutation succeeded!'); }
+    };
+  };
+  mutation = injectUpsertReadHistory(this.options);
+
+  // After calling the Mutation injector function, you must call `CreateDataConnectMutationResult.mutate()` to execute the Mutation.
+  executeMutation() {
+    // The `UpsertReadHistory` Mutation requires an argument of type `UpsertReadHistoryVariables`:
+    const upsertReadHistoryVars: UpsertReadHistoryVariables = {
+      id: ..., // optional
+      userUid: ..., 
+      bookId: ..., 
+      readDate: ..., 
+      rating: ..., // optional
+      review: ..., // optional
+    };
+    this.mutation.mutate(upsertReadHistoryVars);
+    // Variables can be defined inline as well.
+    this.mutation.mutate({ id: ..., userUid: ..., bookId: ..., readDate: ..., rating: ..., review: ..., });
+
+    // You can call `CreateDataConnectMutationResult.mutateAsync()` to execute the Mutation and return a promise with the data returned from the Mutation.
+    this.mutation.mutateAsync(upsertReadHistoryVars);
+
+    // You can also pass in a `UpsertReadHistoryOptions` object (not function) to `CreateDataConnectMutationResult.mutate()`.
+    this.mutation.mutate(upsertReadHistoryVars, this.options());
+  }
+}
+```
+
+## deleteReadHistory
+You can execute the `deleteReadHistory` Mutation using the `CreateDataConnectMutationResult` object returned by the following Mutation injector (which is defined in [default-connector/angular/index.d.ts](./index.d.ts)):
+```javascript
+injectDeleteReadHistory(options?: DeleteReadHistoryOptions, injector?: Injector): CreateDataConnectMutationResult<DeleteReadHistoryData, DeleteReadHistoryVariables, DeleteReadHistoryVariables>;
+```
+
+### Variables
+The `deleteReadHistory` Mutation requires an argument of type `DeleteReadHistoryVariables`, which is defined in [default-connector/index.d.ts](../index.d.ts). It has the following fields:
+
+```javascript
+export interface DeleteReadHistoryVariables {
+  id: UUIDString;
+  userUid: string;
+}
+```
+### Return Type
+Recall that calling the `deleteReadHistory` Mutation injector returns a `CreateDataConnectMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
+
+To check the status of a Mutation, use the `CreateDataConnectMutationResult.status()` function. You can also check for pending / success / error status using the `CreateDataConnectMutationResult.isPending()`, `CreateDataConnectMutationResult.isSuccess()`, and `CreateDataConnectMutationResult.isError()` functions.
+
+To execute the Mutation, call `CreateDataConnectMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation. 
+
+To access the data returned by a Mutation, use the `CreateDataConnectMutationResult.data()` function. The data for the `deleteReadHistory` Mutation is of type `DeleteReadHistoryData`, which is defined in [default-connector/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface DeleteReadHistoryData {
+  readHistory_delete?: ReadHistory_Key | null;
+}
+```
+
+You can also call `CreateDataConnectMutationResult.mutateAsync()`, which executes the Mutation and returns a promise with the data returned from the Mutation. To learn more, see the [TanStack Angular Query documentation](https://tanstack.com/query/latest/docs/framework/angular/guides/mutations#promises).
+
+To learn more about the `CreateDataConnectMutationResult` object, see the [TanStack Query Firebase documentation](https://docs.page/invertase/tanstack-query-firebase/angular/data-connect/functions/injectDataConnectMutation) and the [TanStack Angular Query documentation](https://tanstack.com/query/v5/docs/framework/angular/reference/functions/injectmutation).
+
+### Using `deleteReadHistory`'s Mutation injector
+
+```javascript
+... // other imports
+import { connectorConfig, DeleteReadHistoryVariables } from '@firebasegen/default-connector';
+import { injectDeleteReadHistory, DeleteReadHistoryOptions } from '@firebasegen/default-connector/angular'
+import { DataConnect } from '@angular/fire/data-connect';
+import { initializeApp } from '@angular/fire/app';
+
+@Component({
+  ... // other component fields
+  template: `
+    <!-- You can render your component dynamically based on the status of the Mutation. -->
+    @if (mutation.isPending()) {
+      Loading...
+    }
+    @if (mutation.error()) {
+      An error has occurred: {{ mutation.error() }}
+    }
+    <!-- If the Mutation is successful, you can access the data returned using
+      the CreateDataConnectMutationResult.data() function. -->
+    @if (mutation.data(); as data) {
+      <!-- Use your data to display something -->
+      <div>Mutation successful!</div>
+    }
+    <!-- Let's create a button that executes our mutation when clicked. -->
+    <button
+      (disabled)="mutation.isPending()"
+      (click)="executeMutation()"
+    >
+      {{ mutation.isPending() ? 'Pending...' : 'Mutate!' }}
+    </button>
+  `,
+})
+export class MyComponent {
+  // Call the Mutation injector function to get a `CreateDataConnectMutationResult` object which holds the state of your Mutation.
+  mutation = injectDeleteReadHistory();
+
+  // You can also pass in a `DeleteReadHistoryOptions` function (not object) to the Mutation injector function.
+  options: DeleteReadHistoryOptions = () => {
+    return {
+      onSuccess: () => { console.log('Mutation succeeded!'); }
+    };
+  };
+  mutation = injectDeleteReadHistory(this.options);
+
+  // After calling the Mutation injector function, you must call `CreateDataConnectMutationResult.mutate()` to execute the Mutation.
+  executeMutation() {
+    // The `DeleteReadHistory` Mutation requires an argument of type `DeleteReadHistoryVariables`:
+    const deleteReadHistoryVars: DeleteReadHistoryVariables = {
+      id: ..., 
+      userUid: ..., 
+    };
+    this.mutation.mutate(deleteReadHistoryVars);
+    // Variables can be defined inline as well.
+    this.mutation.mutate({ id: ..., userUid: ..., });
+
+    // You can call `CreateDataConnectMutationResult.mutateAsync()` to execute the Mutation and return a promise with the data returned from the Mutation.
+    this.mutation.mutateAsync(deleteReadHistoryVars);
+
+    // You can also pass in a `DeleteReadHistoryOptions` object (not function) to `CreateDataConnectMutationResult.mutate()`.
+    this.mutation.mutate(deleteReadHistoryVars, this.options());
   }
 }
 ```

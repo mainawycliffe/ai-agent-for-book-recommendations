@@ -1,3 +1,10 @@
+# Generated TypeScript README
+This README will guide you through the process of using the generated JavaScript SDK package for the connector `default`. It will also provide examples on how to use your generated SDK to call your Data Connect queries and mutations.
+
+**If you're looking for the `Angular README`, you can find it at [`default-connector/angular/README.md`](./angular/README.md)**
+
+***NOTE:** This README is generated alongside the generated SDK. If you make changes to this file, they will be overwritten when the SDK is regenerated.*
+
 # Table of Contents
 - [**Overview**](#generated-javascript-readme)
 - [**Accessing the connector**](#accessing-the-connector)
@@ -8,20 +15,15 @@
 - [**Mutations**](#mutations)
   - [*upsertUser*](#upsertuser)
   - [*upsertBook*](#upsertbook)
+  - [*upsertReadHistory*](#upsertreadhistory)
+  - [*deleteReadHistory*](#deletereadhistory)
 
-# Generated TypeScript README
-This README will guide you through the process of using the generated JavaScript SDK package for the connector `default`. It will also provide examples on how to use your generated SDK to call your Data Connect queries and mutations.
-
-***NOTE:** This README is generated alongside the generated SDK. If you make changes to this file, they will be overwritten when the SDK is regenerated.*
+# Accessing the connector
+A connector is a collection of Queries and Mutations. One SDK is generated for each connector - this SDK is generated for the connector `default`. You can find more information about connectors in the [Data Connect documentation](https://firebase.google.com/docs/data-connect#how-does).
 
 You can use this generated SDK by importing from the package `@firebasegen/default-connector` as shown below. Both CommonJS and ESM imports are supported.
 
 You can also follow the instructions from the [Data Connect documentation](https://firebase.google.com/docs/data-connect/web-sdk#set-client).
-
-# Accessing the connector
-A connector is a collection of Queries and Mutations. One SDK is generated for each connector - this SDK is generated for the connector `default`.
-
-You can find more information about connectors in the [Data Connect documentation](https://firebase.google.com/docs/data-connect#how-does).
 
 ```typescript
 import { getDataConnect } from 'firebase/data-connect';
@@ -224,7 +226,7 @@ export interface ReadHistoryData {
         name?: string | null;
         email: string;
       } & User_Key;
-  } & ReadHistory_Key)[];
+  })[];
 }
 ```
 ### Using `ReadHistory`'s action shortcut function
@@ -454,7 +456,7 @@ The `upsertBook` mutation requires an argument of type `UpsertBookVariables`, wh
 
 ```typescript
 export interface UpsertBookVariables {
-  id: UUIDString;
+  id?: UUIDString | null;
   title: string;
   summary: string;
   genre: string[];
@@ -481,7 +483,7 @@ import { connectorConfig, upsertBook, UpsertBookVariables } from '@firebasegen/d
 
 // The `upsertBook` mutation requires an argument of type `UpsertBookVariables`:
 const upsertBookVars: UpsertBookVariables = {
-  id: ..., 
+  id: ..., // optional
   title: ..., 
   summary: ..., 
   genre: ..., 
@@ -518,7 +520,7 @@ import { connectorConfig, upsertBookRef, UpsertBookVariables } from '@firebasege
 
 // The `upsertBook` mutation requires an argument of type `UpsertBookVariables`:
 const upsertBookVars: UpsertBookVariables = {
-  id: ..., 
+  id: ..., // optional
   title: ..., 
   summary: ..., 
   genre: ..., 
@@ -547,6 +549,242 @@ console.log(data.book_upsert);
 executeMutation(ref).then((response) => {
   const data = response.data;
   console.log(data.book_upsert);
+});
+```
+
+## upsertReadHistory
+You can execute the `upsertReadHistory` mutation using the following action shortcut function, or by calling `executeMutation()` after calling the following `MutationRef` function, both of which are defined in [default-connector/index.d.ts](./index.d.ts):
+```typescript
+upsertReadHistory(vars: UpsertReadHistoryVariables): MutationPromise<UpsertReadHistoryData, UpsertReadHistoryVariables>;
+
+interface UpsertReadHistoryRef {
+  ...
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: UpsertReadHistoryVariables): MutationRef<UpsertReadHistoryData, UpsertReadHistoryVariables>;
+}
+export const upsertReadHistoryRef: UpsertReadHistoryRef;
+```
+You can also pass in a `DataConnect` instance to the action shortcut function or `MutationRef` function.
+```typescript
+upsertReadHistory(dc: DataConnect, vars: UpsertReadHistoryVariables): MutationPromise<UpsertReadHistoryData, UpsertReadHistoryVariables>;
+
+interface UpsertReadHistoryRef {
+  ...
+  (dc: DataConnect, vars: UpsertReadHistoryVariables): MutationRef<UpsertReadHistoryData, UpsertReadHistoryVariables>;
+}
+export const upsertReadHistoryRef: UpsertReadHistoryRef;
+```
+
+If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the upsertReadHistoryRef:
+```typescript
+const name = upsertReadHistoryRef.operationName;
+console.log(name);
+```
+
+### Variables
+The `upsertReadHistory` mutation requires an argument of type `UpsertReadHistoryVariables`, which is defined in [default-connector/index.d.ts](./index.d.ts). It has the following fields:
+
+```typescript
+export interface UpsertReadHistoryVariables {
+  id?: UUIDString | null;
+  userUid: string;
+  bookId: UUIDString;
+  readDate: TimestampString;
+  rating?: number | null;
+  review?: string | null;
+}
+```
+### Return Type
+Recall that executing the `upsertReadHistory` mutation returns a `MutationPromise` that resolves to an object with a `data` property.
+
+The `data` property is an object of type `UpsertReadHistoryData`, which is defined in [default-connector/index.d.ts](./index.d.ts). It has the following fields:
+```typescript
+export interface UpsertReadHistoryData {
+  readHistory_upsert: ReadHistory_Key;
+}
+```
+### Using `upsertReadHistory`'s action shortcut function
+
+```typescript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, upsertReadHistory, UpsertReadHistoryVariables } from '@firebasegen/default-connector';
+
+// The `upsertReadHistory` mutation requires an argument of type `UpsertReadHistoryVariables`:
+const upsertReadHistoryVars: UpsertReadHistoryVariables = {
+  id: ..., // optional
+  userUid: ..., 
+  bookId: ..., 
+  readDate: ..., 
+  rating: ..., // optional
+  review: ..., // optional
+};
+
+// Call the `upsertReadHistory()` function to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await upsertReadHistory(upsertReadHistoryVars);
+// Variables can be defined inline as well.
+const { data } = await upsertReadHistory({ id: ..., userUid: ..., bookId: ..., readDate: ..., rating: ..., review: ..., });
+
+// You can also pass in a `DataConnect` instance to the action shortcut function.
+const dataConnect = getDataConnect(connectorConfig);
+const { data } = await upsertReadHistory(dataConnect, upsertReadHistoryVars);
+
+console.log(data.readHistory_upsert);
+
+// Or, you can use the `Promise` API.
+upsertReadHistory(upsertReadHistoryVars).then((response) => {
+  const data = response.data;
+  console.log(data.readHistory_upsert);
+});
+```
+
+### Using `upsertReadHistory`'s `MutationRef` function
+
+```typescript
+import { getDataConnect, executeMutation } from 'firebase/data-connect';
+import { connectorConfig, upsertReadHistoryRef, UpsertReadHistoryVariables } from '@firebasegen/default-connector';
+
+// The `upsertReadHistory` mutation requires an argument of type `UpsertReadHistoryVariables`:
+const upsertReadHistoryVars: UpsertReadHistoryVariables = {
+  id: ..., // optional
+  userUid: ..., 
+  bookId: ..., 
+  readDate: ..., 
+  rating: ..., // optional
+  review: ..., // optional
+};
+
+// Call the `upsertReadHistoryRef()` function to get a reference to the mutation.
+const ref = upsertReadHistoryRef(upsertReadHistoryVars);
+// Variables can be defined inline as well.
+const ref = upsertReadHistoryRef({ id: ..., userUid: ..., bookId: ..., readDate: ..., rating: ..., review: ..., });
+
+// You can also pass in a `DataConnect` instance to the `MutationRef` function.
+const dataConnect = getDataConnect(connectorConfig);
+const ref = upsertReadHistoryRef(dataConnect, upsertReadHistoryVars);
+
+// Call `executeMutation()` on the reference to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await executeMutation(ref);
+
+console.log(data.readHistory_upsert);
+
+// Or, you can use the `Promise` API.
+executeMutation(ref).then((response) => {
+  const data = response.data;
+  console.log(data.readHistory_upsert);
+});
+```
+
+## deleteReadHistory
+You can execute the `deleteReadHistory` mutation using the following action shortcut function, or by calling `executeMutation()` after calling the following `MutationRef` function, both of which are defined in [default-connector/index.d.ts](./index.d.ts):
+```typescript
+deleteReadHistory(vars: DeleteReadHistoryVariables): MutationPromise<DeleteReadHistoryData, DeleteReadHistoryVariables>;
+
+interface DeleteReadHistoryRef {
+  ...
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: DeleteReadHistoryVariables): MutationRef<DeleteReadHistoryData, DeleteReadHistoryVariables>;
+}
+export const deleteReadHistoryRef: DeleteReadHistoryRef;
+```
+You can also pass in a `DataConnect` instance to the action shortcut function or `MutationRef` function.
+```typescript
+deleteReadHistory(dc: DataConnect, vars: DeleteReadHistoryVariables): MutationPromise<DeleteReadHistoryData, DeleteReadHistoryVariables>;
+
+interface DeleteReadHistoryRef {
+  ...
+  (dc: DataConnect, vars: DeleteReadHistoryVariables): MutationRef<DeleteReadHistoryData, DeleteReadHistoryVariables>;
+}
+export const deleteReadHistoryRef: DeleteReadHistoryRef;
+```
+
+If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the deleteReadHistoryRef:
+```typescript
+const name = deleteReadHistoryRef.operationName;
+console.log(name);
+```
+
+### Variables
+The `deleteReadHistory` mutation requires an argument of type `DeleteReadHistoryVariables`, which is defined in [default-connector/index.d.ts](./index.d.ts). It has the following fields:
+
+```typescript
+export interface DeleteReadHistoryVariables {
+  id: UUIDString;
+  userUid: string;
+}
+```
+### Return Type
+Recall that executing the `deleteReadHistory` mutation returns a `MutationPromise` that resolves to an object with a `data` property.
+
+The `data` property is an object of type `DeleteReadHistoryData`, which is defined in [default-connector/index.d.ts](./index.d.ts). It has the following fields:
+```typescript
+export interface DeleteReadHistoryData {
+  readHistory_delete?: ReadHistory_Key | null;
+}
+```
+### Using `deleteReadHistory`'s action shortcut function
+
+```typescript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, deleteReadHistory, DeleteReadHistoryVariables } from '@firebasegen/default-connector';
+
+// The `deleteReadHistory` mutation requires an argument of type `DeleteReadHistoryVariables`:
+const deleteReadHistoryVars: DeleteReadHistoryVariables = {
+  id: ..., 
+  userUid: ..., 
+};
+
+// Call the `deleteReadHistory()` function to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await deleteReadHistory(deleteReadHistoryVars);
+// Variables can be defined inline as well.
+const { data } = await deleteReadHistory({ id: ..., userUid: ..., });
+
+// You can also pass in a `DataConnect` instance to the action shortcut function.
+const dataConnect = getDataConnect(connectorConfig);
+const { data } = await deleteReadHistory(dataConnect, deleteReadHistoryVars);
+
+console.log(data.readHistory_delete);
+
+// Or, you can use the `Promise` API.
+deleteReadHistory(deleteReadHistoryVars).then((response) => {
+  const data = response.data;
+  console.log(data.readHistory_delete);
+});
+```
+
+### Using `deleteReadHistory`'s `MutationRef` function
+
+```typescript
+import { getDataConnect, executeMutation } from 'firebase/data-connect';
+import { connectorConfig, deleteReadHistoryRef, DeleteReadHistoryVariables } from '@firebasegen/default-connector';
+
+// The `deleteReadHistory` mutation requires an argument of type `DeleteReadHistoryVariables`:
+const deleteReadHistoryVars: DeleteReadHistoryVariables = {
+  id: ..., 
+  userUid: ..., 
+};
+
+// Call the `deleteReadHistoryRef()` function to get a reference to the mutation.
+const ref = deleteReadHistoryRef(deleteReadHistoryVars);
+// Variables can be defined inline as well.
+const ref = deleteReadHistoryRef({ id: ..., userUid: ..., });
+
+// You can also pass in a `DataConnect` instance to the `MutationRef` function.
+const dataConnect = getDataConnect(connectorConfig);
+const ref = deleteReadHistoryRef(dataConnect, deleteReadHistoryVars);
+
+// Call `executeMutation()` on the reference to execute the mutation.
+// You can use the `await` keyword to wait for the promise to resolve.
+const { data } = await executeMutation(ref);
+
+console.log(data.readHistory_delete);
+
+// Or, you can use the `Promise` API.
+executeMutation(ref).then((response) => {
+  const data = response.data;
+  console.log(data.readHistory_delete);
 });
 ```
 

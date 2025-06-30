@@ -31,6 +31,30 @@ exports.upsertBook = function upsertBook(dcOrVars, vars) {
   return executeMutation(upsertBookRef(dcOrVars, vars));
 };
 
+const upsertReadHistoryRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'upsertReadHistory', inputVars);
+}
+upsertReadHistoryRef.operationName = 'upsertReadHistory';
+exports.upsertReadHistoryRef = upsertReadHistoryRef;
+
+exports.upsertReadHistory = function upsertReadHistory(dcOrVars, vars) {
+  return executeMutation(upsertReadHistoryRef(dcOrVars, vars));
+};
+
+const deleteReadHistoryRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return mutationRef(dcInstance, 'deleteReadHistory', inputVars);
+}
+deleteReadHistoryRef.operationName = 'deleteReadHistory';
+exports.deleteReadHistoryRef = deleteReadHistoryRef;
+
+exports.deleteReadHistory = function deleteReadHistory(dcOrVars, vars) {
+  return executeMutation(deleteReadHistoryRef(dcOrVars, vars));
+};
+
 const booksRef = (dc) => {
   const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
   dcInstance._useGeneratedSdk();

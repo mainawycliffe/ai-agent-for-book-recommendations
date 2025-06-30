@@ -10,8 +10,9 @@ mutation upsertUser($uid: String!, $name: String, $email: String)
   )
 }
 
+# This is to seed the database with initial data.
 mutation upsertBook(
-  $id: UUID!
+  $id: UUID
   $title: String!
   $summary: String!
   $genre: [String!]!
@@ -19,7 +20,7 @@ mutation upsertBook(
   $publishedDate: Timestamp!
   $content: String!
   $imageUrl: String!
-) @auth(level: USER) {
+) @auth(level: PUBLIC) {
   book_upsert(
     data: {
       id: $id
@@ -56,6 +57,6 @@ mutation upsertReadHistory(
 }
 
 mutation deleteReadHistory($id: UUID!, $userUid: String!)
-@auth(expr: "auth.uid == readHistory.userUid") {
+@auth(expr: "auth.uid == userUid") {
   readHistory_delete(key: { id: $id, userUid: $userUid })
 }
