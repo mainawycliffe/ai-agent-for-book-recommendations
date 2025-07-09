@@ -23,6 +23,7 @@
       ],
       "predeploy": [
         "pnpm nx run genkit:build",
+        "cp ./tools.json ./dist/apps/genkit/tools.json",
         "echo 'Functions built successfully.'"
       ]
     }

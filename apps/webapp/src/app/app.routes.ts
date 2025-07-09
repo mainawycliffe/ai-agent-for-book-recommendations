@@ -8,7 +8,7 @@ export const appRoutes: Route[] = [
     path: 'login',
     loadComponent: () =>
       import('./components/login/login.component').then(
-        (m) => m.LoginComponent
+        (m) => m.LoginComponent,
       ),
     canActivate: [loginGuard],
   },
@@ -21,21 +21,14 @@ export const appRoutes: Route[] = [
         path: '',
         loadComponent: () =>
           import('./components/home/home.component').then(
-            (m) => m.HomeComponent
+            (m) => m.HomeComponent,
           ),
       },
       {
         path: 'books',
         loadComponent: () =>
           import('./components/books/books.component').then(
-            (m) => m.BooksComponent
-          ),
-      },
-      {
-        path: 'search',
-        loadComponent: () =>
-          import('./components/search/search.component').then(
-            (m) => m.SearchComponent
+            (m) => m.BooksComponent,
           ),
       },
     ],

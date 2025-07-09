@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { AuthService } from '../../services/auth.service';
 import { ReadHistoryComponent } from '../read-history/read-history.component';
 import { RecommendedBooksComponent } from '../recommended-books/recommended-books.component';
 
@@ -10,11 +12,19 @@ import { RecommendedBooksComponent } from '../recommended-books/recommended-book
         <app-recommended-books />
       </div>
       <div>
-        <app-read-history />
+        @let userData = user();
+
+        @if (userData) {
+          <app-read-history [user]="userData" />
+        }
       </div>
     </div>
   `,
   standalone: true,
   imports: [RecommendedBooksComponent, ReadHistoryComponent],
 })
-export class HomeComponent {}
+export class HomeComponent {
+  authService = inject(AuthService);
+
+  user = toSignal(this.authService.user$);
+}
