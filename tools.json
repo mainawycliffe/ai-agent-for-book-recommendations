@@ -38,7 +38,7 @@
     {
       "name": "userRecommendations",
       "type": "query",
-      "description": "A query to get recommendations for a user, including the book details and the\nreason for the recommendation.",
+      "description": "A query to get recommendations for a user, including the book details and the\nreason for the recommendation -- useful for understanding why a book was recommended.",
       "parameters": {
         "type": "object",
         "properties": {

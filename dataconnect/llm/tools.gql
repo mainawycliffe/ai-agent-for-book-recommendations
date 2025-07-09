@@ -38,7 +38,7 @@ query userReadHistory($uid: String!) @auth(level: PUBLIC) {
 }
 
 # A query to get recommendations for a user, including the book details and the
-# reason for the recommendation.
+# reason for the recommendation -- useful for understanding why a book was recommended.
 query userRecommendations($uid: String!) @auth(level: PUBLIC) {
   recommendations(where: { userUid: { eq: $uid } }) {
     id

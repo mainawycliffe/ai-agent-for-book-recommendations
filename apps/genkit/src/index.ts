@@ -65,7 +65,12 @@ export const bookRecommendationFlow = ai.defineFlow(
     const { response, stream } = ai.generateStream({
       prompt,
       output: { schema: z.string() },
-      tools: ['db/searchForBooksWithQuery', 'db/userReadHistory'],
+      tools: [
+        'db/searchForBooksWithQuery',
+        'db/userReadHistory',
+        'db/userRecommendations',
+        'db/addBookRecommendation',
+      ],
     });
 
     // Investigate the response stream and send chunks as they are generated
