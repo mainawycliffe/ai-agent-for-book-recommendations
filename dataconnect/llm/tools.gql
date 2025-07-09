@@ -36,3 +36,34 @@ query userReadHistory($uid: String!) @auth(level: PUBLIC) {
     }
   }
 }
+
+# A query to get recommendations for a user, including the book details and the
+# reason for the recommendation.
+query userRecommendations($uid: String!) @auth(level: PUBLIC) {
+  recommendations(where: { userUid: { eq: $uid } }) {
+    id
+    book {
+      ...BookDetails
+    }
+    reason
+    createdAt
+  }
+}
+
+# A mutation to add a new book recommendation for a user.
+mutation addBookRecommendation(
+  $id: UUID
+  $userUid: String!
+  $bookId: UUID!
+  $reason: String!
+) @auth(level: PUBLIC) {
+  recommendation_upsert(
+    data: {
+      id: $id
+      userUid: $userUid
+      bookId: $bookId
+      reason: $reason
+      createdAt_expr: "request.time"
+    }
+  )
+}

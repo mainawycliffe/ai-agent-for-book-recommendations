@@ -31,3 +31,14 @@ query ReadHistory($uid: String!) @auth(expr: "auth.uid == uid") {
     }
   }
 }
+
+query Recommendations($uid: String!) @auth(expr: "auth.uid == uid") {
+  recommendations(where: { userUid: { eq: $uid } }) {
+    id
+    book {
+      ...BookDetails
+    }
+    reason
+    createdAt
+  }
+}

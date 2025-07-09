@@ -27,3 +27,11 @@ type ReadHistory @table(key: ["user", "id"]) {
   review: String
   createdAt: Timestamp! @default(expr: "request.time")
 }
+
+type Recommendation @table(key: ["user", "id"]) {
+  id: UUID! @default(expr: "uuidV4()")
+  user: User!
+  book: Book!
+  reason: String
+  createdAt: Timestamp! @default(expr: "request.time")
+}

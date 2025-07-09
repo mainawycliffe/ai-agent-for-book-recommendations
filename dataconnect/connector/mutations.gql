@@ -60,3 +60,20 @@ mutation deleteReadHistory($id: UUID!, $userUid: String!)
 @auth(expr: "auth.uid == userUid") {
   readHistory_delete(key: { id: $id, userUid: $userUid })
 }
+
+mutation upsertRecommendation(
+  $id: UUID
+  $userUid: String!
+  $bookId: UUID!
+  $reason: String!
+) @auth(expr: "auth.uid == userUid") {
+  recommendation_upsert(
+    data: {
+      id: $id
+      userUid: $userUid
+      bookId: $bookId
+      reason: $reason
+      createdAt_expr: "request.time"
+    }
+  )
+}

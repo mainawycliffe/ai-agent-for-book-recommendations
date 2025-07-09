@@ -34,6 +34,40 @@ extend type Book {
     having: ReadHistory_Having
   ): [ReadHistory!]! @fdc_generated(from: "ReadHistory.book", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
   """
+  ✨ List `Recommendation` objects in a one-to-many relationship (where `Recommendation`.`book` is this object).
+  """
+  recommendations_on_book(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Recommendation_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Recommendation_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Recommendation_Having
+  ): [Recommendation!]! @fdc_generated(from: "Recommendation.book", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
   Implicit metadata field that cannot be written. It provides extra information about query results.
   """
   _metadata: _Metadata @fdc_generated(from: "Book", purpose: METADATA_FIELD)
@@ -228,6 +262,69 @@ extend type ReadHistory {
   """
   readDate_max: Timestamp @fdc_generated(from: "ReadHistory.readDate", purpose: QUERY_MAX)
 }
+extend type Recommendation {
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "Recommendation", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `Recommendation` table.
+  """
+  _count: Int! @fdc_generated(from: "Recommendation", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Recommendation` table where the `bookId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  bookId_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Recommendation.bookId", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Recommendation` table where the `createdAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  createdAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Recommendation.createdAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Recommendation` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Recommendation.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Recommendation` table where the `reason` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  reason_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Recommendation.reason", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Recommendation` table where the `userUid` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  userUid_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Recommendation.userUid", purpose: QUERY_COUNT)
+  """
+  ✨ Minimum of the `createdAt` field in the `Recommendation` table.
+  """
+  createdAt_min: Timestamp @fdc_generated(from: "Recommendation.createdAt", purpose: QUERY_MIN)
+  """
+  ✨ Maximum of the `createdAt` field in the `Recommendation` table.
+  """
+  createdAt_max: Timestamp @fdc_generated(from: "Recommendation.createdAt", purpose: QUERY_MAX)
+}
 extend type User {
   """
   ✨ List `ReadHistory` objects in a one-to-many relationship (where `ReadHistory`.`user` is this object).
@@ -263,6 +360,40 @@ extend type User {
     """
     having: ReadHistory_Having
   ): [ReadHistory!]! @fdc_generated(from: "ReadHistory.user", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
+  ✨ List `Recommendation` objects in a one-to-many relationship (where `Recommendation`.`user` is this object).
+  """
+  recommendations_on_user(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Recommendation_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Recommendation_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Recommendation_Having
+  ): [Recommendation!]! @fdc_generated(from: "Recommendation.user", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
   """
   Implicit metadata field that cannot be written. It provides extra information about query results.
   """

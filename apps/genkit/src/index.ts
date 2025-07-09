@@ -43,7 +43,7 @@ export const bookRecommendationFlow = ai.defineFlow(
     inputSchema: inputSchema,
     outputSchema: z.string().describe('Recommended book title'),
   },
-  async (input) => {
+  async (input, { sendChunk }) => {
     // Create a prompt based on the input
     const prompt = `You are an AI assistant that recommends books based on user preferences, reading history, mood and genre.
 
@@ -62,23 +62,27 @@ export const bookRecommendationFlow = ai.defineFlow(
     When all the information is gathered, return a single book title that best matches the user's preferences. If you cannot find a suitable book, return "No suitable book found."`;
 
     // Generate structured recipe data using the same schema
-    const { output } = await ai.generate({
+    const { response, stream } = ai.generateStream({
       prompt,
       output: { schema: z.string() },
       tools: ['db/searchForBooksWithQuery', 'db/userReadHistory'],
     });
 
+    // Investigate the response stream and send chunks as they are generated
+    for await (const chunk of stream) {
+      sendChunk(chunk.text);
+    }
+    const output = (await response).output;
     if (!output) {
       throw new Error('Failed to generate recipe');
     }
-
     return output;
-  }
+  },
 );
 
 export const bookRecomendation = onCallGenkit(
   {
     secrets: [geminiKey],
   },
-  bookRecommendationFlow
+  bookRecommendationFlow,
 );

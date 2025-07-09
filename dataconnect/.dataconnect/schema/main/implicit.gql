@@ -8,3 +8,13 @@ extend type ReadHistory {
   """
   bookId: UUID! @fdc_generated(from: "ReadHistory.book", purpose: IMPLICIT_REF_FIELD)
 }
+extend type Recommendation {
+  """
+  ✨ Implicit foreign key field based on `Recommendation`.`user`. It must match the value of `User`.`uid`. See `@ref` for how to customize it.
+  """
+  userUid: String! @fdc_generated(from: "Recommendation.user", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Recommendation`.`book`. It must match the value of `Book`.`id`. See `@ref` for how to customize it.
+  """
+  bookId: UUID! @fdc_generated(from: "Recommendation.book", purpose: IMPLICIT_REF_FIELD)
+}

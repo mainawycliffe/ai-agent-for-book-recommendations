@@ -18,6 +18,15 @@ extend type Mutation {
     data: ReadHistory_Data!
   ): ReadHistory_KeyOutput! @fdc_generated(from: "ReadHistory", purpose: INSERT_SINGLE)
   """
+  ✨ Insert a single `Recommendation` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  recommendation_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Recommendation_Data!
+  ): Recommendation_KeyOutput! @fdc_generated(from: "Recommendation", purpose: INSERT_SINGLE)
+  """
   ✨ Insert a single `User` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
   """
   user_insert(
@@ -44,6 +53,15 @@ extend type Mutation {
     """
     data: [ReadHistory_Data!]!
   ): [ReadHistory_KeyOutput!]! @fdc_generated(from: "ReadHistory", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Recommendation` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  recommendation_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Recommendation_Data!]!
+  ): [Recommendation_KeyOutput!]! @fdc_generated(from: "Recommendation", purpose: INSERT_MULTIPLE)
   """
   ✨ Insert `User` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
   """
@@ -72,6 +90,15 @@ extend type Mutation {
     data: ReadHistory_Data!
   ): ReadHistory_KeyOutput! @fdc_generated(from: "ReadHistory", purpose: UPSERT_SINGLE)
   """
+  ✨ Insert or update a single `Recommendation` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Recommendation`.
+  """
+  recommendation_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Recommendation_Data!
+  ): Recommendation_KeyOutput! @fdc_generated(from: "Recommendation", purpose: UPSERT_SINGLE)
+  """
   ✨ Insert or update a single `User` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `User`.
   """
   user_upsert(
@@ -98,6 +125,15 @@ extend type Mutation {
     """
     data: [ReadHistory_Data!]!
   ): [ReadHistory_KeyOutput!]! @fdc_generated(from: "ReadHistory", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Recommendation` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Recommendation`.
+  """
+  recommendation_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Recommendation_Data!]!
+  ): [Recommendation_KeyOutput!]! @fdc_generated(from: "Recommendation", purpose: UPSERT_MULTIPLE)
   """
   ✨ Insert or update `User` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `User`.
   """
@@ -150,6 +186,25 @@ extend type Mutation {
     """
     data: ReadHistory_Data!
   ): ReadHistory_KeyOutput @fdc_generated(from: "ReadHistory", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Recommendation` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Recommendation` or `null` if not found.
+  """
+  recommendation_update(
+    """
+    The key used to identify the object.
+    """
+    key: Recommendation_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Recommendation_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Recommendation_Data!
+  ): Recommendation_KeyOutput @fdc_generated(from: "Recommendation", purpose: UPDATE_SINGLE)
   """
   ✨ Update a single `User` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `User` or `null` if not found.
   """
@@ -208,6 +263,25 @@ extend type Mutation {
     data: ReadHistory_Data!
   ): Int! @fdc_generated(from: "ReadHistory", purpose: UPDATE_MULTIPLE)
   """
+  ✨ Update `Recommendation` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  recommendation_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Recommendation_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Recommendation_Data!
+  ): Int! @fdc_generated(from: "Recommendation", purpose: UPDATE_MULTIPLE)
+  """
   ✨ Update `User` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
   """
   user_updateMany(
@@ -260,6 +334,20 @@ extend type Mutation {
     first: ReadHistory_FirstRow
   ): ReadHistory_KeyOutput @fdc_generated(from: "ReadHistory", purpose: DELETE_SINGLE)
   """
+  ✨ Delete a single `Recommendation` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  recommendation_delete(
+    """
+    The key used to identify the object.
+    """
+    key: Recommendation_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Recommendation_FirstRow
+  ): Recommendation_KeyOutput @fdc_generated(from: "Recommendation", purpose: DELETE_SINGLE)
+  """
   ✨ Delete a single `User` based on `id`, `key` or `first` and return its key (or `null` if not found).
   """
   user_delete(
@@ -301,6 +389,20 @@ extend type Mutation {
     """
     all: Boolean = false
   ): Int! @fdc_generated(from: "ReadHistory", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Recommendation` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  recommendation_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Recommendation_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Recommendation", purpose: DELETE_MULTIPLE)
   """
   ✨ Delete `User` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
   """

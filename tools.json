@@ -34,6 +34,49 @@
           "uid"
         ]
       }
+    },
+    {
+      "name": "userRecommendations",
+      "type": "query",
+      "description": "A query to get recommendations for a user, including the book details and the\nreason for the recommendation.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "uid"
+        ]
+      }
+    },
+    {
+      "name": "addBookRecommendation",
+      "type": "mutation",
+      "description": "A mutation to add a new book recommendation for a user.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "bookId": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "userUid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "userUid",
+          "bookId",
+          "reason"
+        ]
+      }
     }
   ]
 }
